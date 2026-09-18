@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+.mypy_cache/
+
+# Environments and editor files
+.venv/
+venv/
+env/
+.env
+.DS_Store
+.idea/
+.vscode/
+
+# Models and Hugging Face caches
+models/
+checkpoints/
+*.safetensors
+*.bin
+*.pt
+*.pth
+.cache/
+hf_cache/
+
+# Generated experiment artifacts
+results/checkpoints_*/
+results/*_output/
+results/*.json
+results/*.csv
+results/*.png
+!results/figures/*.png
+tmp_*/
+TEMP_*
+
+# Private source archive retained locally for reference only
+/thought-circuits-archive/

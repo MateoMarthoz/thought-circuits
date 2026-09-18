@@ -1,0 +1,9 @@
+# Recorded dissertation runtime dependencies.
+torch>=2.0.0
+transformers>=4.35.0
+sentence-transformers>=2.2.0
+scikit-learn
+numpy>=1.24.0
+tqdm>=4.65.0
+accelerate>=0.24.0
+matplotlib>=3.8.0
