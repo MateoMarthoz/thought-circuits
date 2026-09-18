@@ -1,25 +1,27 @@
 # Metrics and Intervention Methods (Code-Faithful Specification)
 
 This document is an archive-era implementation note. During curation, reusable
-modules were moved from the old `causal_cot/src/` location into `causal_cot/`,
-with gradient helpers under `causal_cot/gradient/`; scientific behavior was not
-changed.
+modules were moved into `causal_cot/`, with gradient helpers under
+`causal_cot/gradient/`; scientific behavior was not changed.
 
 It is intended to mirror implementation behavior in:
 
-- `causal_cot/src/step_utils.py`
-- `causal_cot/src/text_utils.py`
-- `causal_cot/src/metrics.py`
-- `causal_cot/src/eval_utils.py`
-- `causal_cot/src/perturbed_kv_post_source.py`
-- `causal_cot/src/pruning_ssep.py`
-- `causal_cot/src/hooks_jsep.py`
-- `causal_cot/src/l0_utils.py`
-- `causal_cot/src/perturb_mlm.py`
-- `causal_cot/run_backward_ablation.py`
-- `causal_cot/run_joint_baselines.py`
+- `causal_cot/step_utils.py`
+- `causal_cot/text_utils.py`
+- `causal_cot/metrics.py`
+- archive-only sparse-logit evaluation utilities (not retained in this repository)
+- `causal_cot/interventions/kv_perturbation.py`
+- `causal_cot/gradient/pruning_ssep.py`
+- `causal_cot/gradient/hooks_jsep.py`
+- `causal_cot/gradient/l0_utils.py`
+- `causal_cot/perturbations/mlm.py`
+- `experiments/run_backward_ablation.py`
+- `experiments/run_joint_baselines.py`
 
 All details below are implementation-level, including edge-case behavior.
+
+Thought Anchors-derived utility provenance is recorded in `docs/ATTRIBUTION.md`.
+Those upstream references are not separate local directories in this repository.
 
 ---
 
@@ -114,7 +116,7 @@ Interpretation:
 
 ### 2.1 Per-Step Mean Cross-Entropy (`calculate_step_loss`)
 
-Function: `causal_cot/src/metrics.py`.
+Function: `causal_cot/metrics.py`.
 
 Given step span `[s, e)`:
 
@@ -126,7 +128,7 @@ If `e <= s + 1`, returns differentiable zero: `logits.sum() * 0.0`.
 
 ### 2.2 Per-Step Joint Log-Probability (`sum_logprob_at_step`)
 
-Function: `causal_cot/src/joint_token_likelihood.py`.
+Function: `causal_cot/joint_token_likelihood.py`.
 
 Given `[s, e)`:
 
@@ -171,7 +173,7 @@ Fallback without baseline table:
 
 ### 2.5 Sparse KL Divergence (`calculate_kl_divergence_sparse`)
 
-Function: `causal_cot/src/eval_utils.py`.
+This archive-only utility is not retained in the cleaned repository.
 
 Input:
 
@@ -197,7 +199,7 @@ Edge handling:
 
 ### 2.6 Top-p Logit Compression (`compress_logits_top_p`)
 
-Function: `causal_cot/src/eval_utils.py`.
+This archive-only utility is not retained in the cleaned repository.
 
 For each sequence position:
 
@@ -222,7 +224,7 @@ Position `t` data is `offsets[t]:offsets[t+1]`.
 
 ### 3.1 Attention Suppression (`CumulativeAttnSuppressionContext`)
 
-Implementation location: `causal_cot/run_backward_ablation.py`.
+Implementation location: `causal_cot/interventions/attention_suppression.py`.
 
 Per attention layer:
 
@@ -245,7 +247,7 @@ Interpretation:
 
 ### 3.2 KV Substitution (`PerturbedKVPostSourceContext`)
 
-Implementation location: `causal_cot/src/perturbed_kv_post_source.py`.
+Implementation location: `causal_cot/interventions/kv_perturbation.py`.
 
 Batch behavior:
 
@@ -280,7 +282,7 @@ Important behavioral clarification:
 
 ### 3.3 Single-Target L0 Interpolation (SSEP, `CausalEdgePrunerSSEP`)
 
-Implementation: `causal_cot/src/pruning_ssep.py`.
+Implementation: `causal_cot/gradient/pruning_ssep.py`.
 
 Setup:
 
@@ -343,7 +345,7 @@ Edge extraction after optimization:
 
 ### 3.4 Joint L0 Interpolation (JSEP, `CausalEdgePrunerJSEP`)
 
-Implementation: `causal_cot/src/hooks_jsep.py`.
+Implementation: `causal_cot/gradient/hooks_jsep.py`.
 
 Parameters:
 
@@ -392,7 +394,7 @@ Total objective:
 
 ### 4.1 LLM Resampling (`generate_resampled_continuation`)
 
-Implementation: `causal_cot/src/metrics.py`.
+Implementation: `causal_cot/metrics.py`.
 
 Procedure:
 
@@ -416,7 +418,7 @@ Generation parameters in code:
 
 ### 4.2 MLM Token-Aligned Perturbation (`generate_perturbed_cots`)
 
-Implementation: `causal_cot/src/perturb_mlm.py`.
+Implementation: `causal_cot/perturbations/mlm.py`.
 
 Model:
 

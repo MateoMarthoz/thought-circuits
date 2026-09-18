@@ -9,7 +9,6 @@ experiment implementations with light path and import cleanup only.
 - `causal_cot/`: shared loading, parsing, metrics, interventions, and pruning code.
 - `experiments/`: rollout, perturbation, greedy-pruning, and gradient-pruning entry points.
 - `data/`: one representative rollout plus five aligned perturbation and resampling variants.
-- `results/figures/`: selected dissertation figures.
 - `docs/`: implementation notes and attribution.
 
 Create an environment and install the recorded dependencies with
