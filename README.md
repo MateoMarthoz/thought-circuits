@@ -104,8 +104,7 @@ The normalised score used in several dissertation experiments is:
 
 $$
 \Phi_j(S)
-=
-\frac{
+= \frac{
 p_j^{\mathrm{intervened}}(S) - p_j^{\mathrm{base}}
 }{
 p_j^{\mathrm{clean}} - p_j^{\mathrm{base}}
