@@ -2,6 +2,8 @@
 
 *April 2026*
 
+> **Note:** This was my first attempt at research. I tried to automate causal analysis of model reasoning before I had manually explored enough examples to understand which methods were informative, where they failed, or whether teacher-forced analysis was promising. My follow-up work takes a more exploratory, trace-by-trace approach: [new repository](LINK_TO_NEW_REPO).
+
 Research code from my final-year dissertation, **Step-Level Causal Circuits in Reasoning-Model Chains of Thought**.
 
 The project asks a simple question:
